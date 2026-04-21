@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>🌹 Tanisha's Eternal Rose</title>
+    <title>🌹 Happy Flower Day, Tanisha | Magic Love Rose</title>
     <style>
         :root {
-            --rose-pink: #ff4d6d;
-            --rose-deep: #e11d48;
+            --rose-pink: #ff3366;
+            --rose-deep: #c81e3d;
         }
 
         * {
@@ -20,26 +20,29 @@
 
         body {
             min-height: 100vh;
-            background: radial-gradient(circle at 45% 25%, #4a1f3a, #1a0f1f, #0a0a12);
+            background: radial-gradient(circle at 45% 20%, #4a1f2e, #1a0f1f, #0a0714);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-family: system-ui, 'Segoe UI', 'Poppins', cursive;
-            overflow: hidden;
+            font-family: system-ui, 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            overflow-y: auto;
             position: relative;
-            touch-action: none;
+            touch-action: pan-y; /* allow vertical scroll, drag handled inside */
         }
 
-        /* Floating petals */
+        /* Floating petals in background */
         .floating-petal {
             position: absolute;
-            background: rgba(255, 105, 180, 0.35);
-            border-radius: 50% 20% 70% 30%;
-            width: 16px; 
-            height: 22px;
-            animation: floatPetal 20s linear infinite;
+            background: rgba(255, 80, 120, 0.4);
+            border-radius: 50% 25% 70% 30%;
+            width: 20px;
+            height: 28px;
+            animation: floatPetal 22s linear infinite;
+            opacity: 0.5;
             z-index: 1;
-            opacity: 0.55;
+            pointer-events: none;
         }
 
         @keyframes floatPetal {
@@ -52,393 +55,574 @@
             z-index: 10;
             text-align: center;
             width: 100%;
-            max-width: 560px;
-            padding: 20px 15px;
+            max-width: 540px;
+            margin: 0 auto;
+            padding: 20px 15px 30px;
         }
 
         .flower-container {
             position: relative;
-            height: 520px;
+            height: 460px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
         }
 
         .rose-wrapper {
-            perspective: 1300px;
-            margin-bottom: -60px;
+            perspective: 1400px;
+            display: flex;
+            justify-content: center;
         }
 
         .rose {
             position: relative;
             width: 340px;
             height: 340px;
-            animation: gentleSway 4.2s ease-in-out infinite;
             margin: 0 auto;
+            animation: gentleSway 4.5s ease-in-out infinite;
+            transform-origin: center center;
         }
 
         @keyframes gentleSway {
-            0%, 100% { transform: translateY(0) rotate(-1.5deg); }
-            50% { transform: translateY(-10px) rotate(1.5deg); }
+            0%, 100% { transform: rotate(-2deg) translateY(0); }
+            50% { transform: rotate(2deg) translateY(-12px); }
         }
 
         .petal {
             position: absolute;
-            width: 110px;
-            height: 110px;
-            background: radial-gradient(circle at 32% 28%, #ff6b8a, var(--rose-deep), #c0265e);
-            border-radius: 75% 25% 85% 20%;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.45),
-                        inset 0 6px 15px rgba(255,255,255,0.35),
-                        0 0 25px rgba(255,80,140,0.6);
+            width: 118px;
+            height: 118px;
+            background: radial-gradient(circle at 35% 25%, #ff6b8a, var(--rose-deep), #e11d48);
+            border-radius: 70% 30% 80% 25%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5),
+                        inset 0 8px 20px rgba(255,255,255,0.4),
+                        0 0 30px rgba(255, 60, 100, 0.7);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 11.8px;
-            font-weight: 600;
-            color: #fff9f0;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff0f0;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.7);
             cursor: grab;
             touch-action: none;
             z-index: 20;
-            transition: transform 0.1s ease;
+            transition: filter 0.2s;
+            text-align: center;
+            padding: 8px;
+            word-break: break-word;
+            backdrop-filter: blur(0.5px);
+        }
+
+        .petal:active {
+            cursor: grabbing;
         }
 
         .petal.dragging {
             z-index: 1000;
-            filter: brightness(1.2) drop-shadow(0 25px 45px rgba(255,90,140,0.75));
-            transform: scale(1.12) !important;
+            filter: brightness(1.25) drop-shadow(0 30px 50px rgba(255, 80, 120, 0.9));
+            transform: scale(1.15) !important;
+            transition: none;
+            opacity: 0.95;
         }
 
         .petal.pulled-out {
             position: fixed !important;
-            z-index: 200;
-            animation: petalFloat 2.8s ease forwards;
+            z-index: 200 !important;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+            animation: none;
+            filter: brightness(1.1) drop-shadow(0 20px 35px rgba(0,0,0,0.5));
+        }
+        
+        .petal.pulled-out:active {
+            transform: scale(1.05) rotate(3deg);
         }
 
-        @keyframes petalFloat {
-            to { 
-                transform: scale(1.18) rotate(18deg) translateY(-35px); 
-            }
-        }
+        /* Petal positions for a full natural rose look - perfectly aligned */
+        .petal1  { transform: rotate(0deg)   translate(38px, -38px) rotate(8deg); }
+        .petal2  { transform: rotate(30deg)  translate(45px, -35px) rotate(22deg); }
+        .petal3  { transform: rotate(65deg)  translate(48px, -32px) rotate(18deg); }
+        .petal4  { transform: rotate(95deg)  translate(42px, -40px) rotate(25deg); }
+        .petal5  { transform: rotate(130deg) translate(46px, -36px) rotate(15deg); }
+        .petal6  { transform: rotate(165deg) translate(40px, -34px) rotate(28deg); }
+        .petal7  { transform: rotate(200deg) translate(47px, -39px) rotate(12deg); }
+        .petal8  { transform: rotate(235deg) translate(43px, -33px) rotate(30deg); }
+        .petal9  { transform: rotate(270deg) translate(39px, -37px) rotate(20deg); }
+        .petal10 { transform: rotate(305deg) translate(46px, -35px) rotate(25deg); }
+        .petal11 { transform: rotate(340deg) translate(41px, -38px) rotate(15deg); }
 
-        /* Petal positions */
-        .petal1 { transform: rotate(0deg) translate(42px, -32px) rotate(12deg); }
-        .petal2 { transform: rotate(45deg) translate(48px, -34px) rotate(25deg); }
-        .petal3 { transform: rotate(90deg) translate(44px, -30px) rotate(20deg); }
-        .petal4 { transform: rotate(135deg) translate(46px, -35px) rotate(28deg); }
-        .petal5 { transform: rotate(180deg) translate(40px, -28px) rotate(15deg); }
-        .petal6 { transform: rotate(225deg) translate(47px, -33px) rotate(30deg); }
-        .petal7 { transform: rotate(270deg) translate(43px, -31px) rotate(18deg); }
-        .petal8 { transform: rotate(315deg) translate(41px, -29px) rotate(22deg); }
-
-        .inner-petal { 
-            width: 78px; 
-            height: 78px; 
-            font-size: 10.2px; 
+        .inner-petal {
+            width: 82px;
+            height: 82px;
+            font-size: 11px;
+            z-index: 25;
+            background: radial-gradient(circle at 35% 25%, #ff4d6d, #b91c44, #9e113a);
         }
 
         .rose-center {
             position: absolute;
-            top: 50%; 
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 74px; 
-            height: 74px;
-            background: radial-gradient(circle, #ffe38a, #ff9f1c);
+            width: 82px;
+            height: 82px;
+            background: radial-gradient(circle, #ffeb99, #ffaa00);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 17.5px;
+            font-size: 38px;
             color: #fff8e0;
-            box-shadow: 0 0 0 7px #ffeb9e, 0 15px 35px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 8px #b45f00;
+            box-shadow: 0 0 0 8px #ffe066, 0 20px 40px rgba(0,0,0,0.5);
+            z-index: 30;
             cursor: pointer;
-            z-index: 50;
+            transition: transform 0.1s ease;
+            font-family: system-ui;
+        }
+        
+        .rose-center:active {
+            transform: translate(-50%, -50%) scale(0.97);
         }
 
         .stem {
-            width: 16px;
-            height: 175px;
-            background: linear-gradient(to bottom, #2e7d32, #166534);
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+            width: 18px;
+            height: 185px;
+            background: linear-gradient(to bottom, #2e7d32, #145e2c);
+            border-radius: 25px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
             position: relative;
-            margin-top: -25px;
+            margin-top: -35px;
+            z-index: 5;
+            cursor: pointer;
         }
 
         .leaf {
             position: absolute;
-            width: 54px;
-            height: 33px;
+            width: 62px;
+            height: 38px;
             background: linear-gradient(145deg, #4ade5a, #22c55e);
-            border-radius: 80% 15% 75% 25%;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border-radius: 80% 20% 75% 25%;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+            cursor: pointer;
         }
-        .leaf1 { left: -39px; top: 52px; transform: rotate(-36deg); }
-        .leaf2 { right: -41px; top: 98px; transform: rotate(56deg); }
+        .leaf1 { left: -42px; top: 48px; transform: rotate(-40deg); }
+        .leaf2 { right: -45px; top: 98px; transform: rotate(55deg); }
 
-        .greeting {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.1rem;
-            background: linear-gradient(90deg, #ffb3c6, #ff8fab);
+        .title {
+            font-size: 2.25rem;
+            background: linear-gradient(90deg, #ff9ab8, #ff4d6d);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             margin: 15px 0 8px;
+            font-weight: bold;
+            letter-spacing: -0.5px;
         }
 
-        .sub {
-            font-size: 0.9rem;
-            color: #e8c8b8;
-            background: rgba(255,255,255,0.07);
-            padding: 10px 24px;
+        .subtitle {
+            font-size: 1rem;
+            color: #f8c4d8;
+            background: rgba(255,255,255,0.08);
+            padding: 10px 28px;
             border-radius: 50px;
             display: inline-block;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(4px);
         }
 
         .reset-btn {
-            background: linear-gradient(135deg, rgba(255,180,200,0.3), rgba(255,140,160,0.2));
-            border: 2px solid #ff9ab8;
-            color: #ffe0e8;
-            padding: 14px 36px;
+            background: linear-gradient(135deg, #ff4d6d, #c81e3d);
+            border: none;
+            color: white;
+            padding: 14px 38px;
             border-radius: 50px;
             font-weight: 700;
             cursor: pointer;
             font-size: 1.05rem;
+            box-shadow: 0 10px 30px rgba(200, 30, 60, 0.4);
+            transition: transform 0.1s ease;
+            touch-action: manipulation;
+        }
+        
+        .reset-btn:active {
+            transform: scale(0.96);
         }
 
         .message-popup {
             position: fixed;
-            bottom: 30px;
+            bottom: 35px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(20,10,35,0.96);
-            backdrop-filter: blur(30px);
-            color: #ffe8d4;
-            padding: 18px 28px;
+            background: rgba(20, 8, 32, 0.97);
+            backdrop-filter: blur(25px);
+            color: #ffe4f0;
+            padding: 18px 32px;
             border-radius: 9999px;
-            max-width: 92vw;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            max-width: 90vw;
+            box-shadow: 0 25px 65px rgba(0,0,0,0.7);
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.4s ease;
             z-index: 300;
-            font-size: 1.05rem;
-            line-height: 1.4;
+            font-size: 1rem;
+            line-height: 1.45;
+            text-align: center;
+            font-weight: 500;
+            pointer-events: none;
+            word-break: break-word;
+            border-left: 3px solid #ff7b9c;
+            border-right: 3px solid #ffb347;
         }
 
-        .message-popup.show { 
-            opacity: 1; 
-            transform: translateX(-50%) scale(1); 
+        .message-popup.show {
+            opacity: 1;
+            transform: translateX(-50%) scale(1.02);
+            bottom: 30px;
         }
 
-        /* Mobile Responsiveness */
-        @media (max-width: 520px) {
-            .rose { 
-                width: 290px; 
-                height: 290px; 
-            }
-            .petal { 
-                width: 96px; 
-                height: 96px; 
-            }
-            .inner-petal { 
-                width: 68px; 
-                height: 68px; 
-            }
-            .flower-container {
-                height: 460px;
-            }
-            .greeting {
-                font-size: 1.85rem;
-            }
+        @media (max-width: 550px) {
+            .rose { width: 290px; height: 290px; }
+            .petal { width: 102px; height: 102px; font-size: 11px; }
+            .inner-petal { width: 72px; height: 72px; font-size: 10px; }
+            .flower-container { height: 420px; }
+            .title { font-size: 1.95rem; }
+            .subtitle { font-size: 0.85rem; padding: 8px 20px; }
+            .message-popup { font-size: 0.9rem; padding: 14px 24px; bottom: 25px; }
+            .message-popup.show { bottom: 20px; }
+            .petal1  { transform: rotate(0deg)   translate(32px, -32px) rotate(8deg); }
+            .petal2  { transform: rotate(30deg)  translate(38px, -30px) rotate(22deg); }
+            .petal3  { transform: rotate(65deg)  translate(40px, -28px) rotate(18deg); }
+            .petal4  { transform: rotate(95deg)  translate(36px, -34px) rotate(25deg); }
+            .petal5  { transform: rotate(130deg) translate(39px, -31px) rotate(15deg); }
+            .petal6  { transform: rotate(165deg) translate(34px, -29px) rotate(28deg); }
+            .petal7  { transform: rotate(200deg) translate(40px, -33px) rotate(12deg); }
+            .petal8  { transform: rotate(235deg) translate(37px, -28px) rotate(30deg); }
+            .petal9  { transform: rotate(270deg) translate(33px, -32px) rotate(20deg); }
+            .petal10 { transform: rotate(305deg) translate(39px, -30px) rotate(25deg); }
+            .petal11 { transform: rotate(340deg) translate(35px, -33px) rotate(15deg); }
         }
 
-        @media (max-width: 380px) {
-            .rose { 
-                width: 260px; 
-                height: 260px; 
-            }
-            .petal { 
-                width: 86px; 
-                height: 86px; 
-            }
+        @media (max-width: 420px) {
+            .rose { width: 270px; height: 270px; }
+            .petal { width: 92px; height: 92px; font-size: 10px; }
+            .inner-petal { width: 66px; height: 66px; font-size: 9px; }
         }
     </style>
 </head>
 <body>
 
-<div class="floating-petal" style="left:12%; animation-duration:23s;"></div>
-<div class="floating-petal" style="left:78%; animation-duration:17s; animation-delay:-7s;"></div>
-<div class="floating-petal" style="left:28%; animation-duration:26s; animation-delay:-11s;"></div>
+<div class="floating-petal" style="left:15%; animation-duration:24s;"></div>
+<div class="floating-petal" style="left:72%; animation-duration:18s; animation-delay:-8s;"></div>
+<div class="floating-petal" style="left:35%; animation-duration:29s; animation-delay:-14s; width:15px; height:22px;"></div>
+<div class="floating-petal" style="left:88%; animation-duration:21s; animation-delay:-5s; width:18px; height:24px;"></div>
+<div class="floating-petal" style="left:5%; animation-duration:26s; animation-delay:-11s;"></div>
 
 <div class="main-container">
     <div class="flower-container">
-        <!-- Rose -->
         <div class="rose-wrapper">
             <div class="rose" id="rose">
-                <div class="petal petal1" data-fullmsg="🌸 Tanisha, your laughter blooms in my heart every single day. You are my sunshine! 🌸">✨ Pull me ✨</div>
-                <div class="petal petal2" data-fullmsg="✨ My world shines brighter because you're in it. I love you endlessly, Tanisha ✨">💖 Pull me 💖</div>
-                <div class="petal petal3" data-fullmsg="💖 Your kindness is a rare bloom. Thank you for being my greatest gift 💖">🌹 Pull me 🌹</div>
-                <div class="petal petal4" data-fullmsg="🌹 Tanisha, among a thousand roses, you'll always be my favorite. Forever yours 🌹">💕 Pull me 💕</div>
-                <div class="petal petal5" data-fullmsg="💫 You are the poetry my soul always wanted to write. Love you beyond measure 💫">🌟 Pull me 🌟</div>
-                <div class="petal petal6" data-fullmsg="🍃 With you, my heart finds peace. You lift me higher every day, my love 🍃">💗 Pull me 💗</div>
-                <div class="petal petal7" data-fullmsg="🌟 Your love is my guiding star. Shine on, beautiful Tanisha 🌟">✨ Pull me ✨</div>
-                <div class="petal petal8" data-fullmsg="💕 Each petal of this rose whispers your name. I'm forever grateful for you 💕">🌸 Pull me 🌸</div>
+                <!-- Outer Petals - full rose alignment -->
+                <div class="petal petal1" data-fullmsg="Kitni pyaari h tuuuuu">💕 Pull me</div>
+                <div class="petal petal2" data-fullmsg="💖 Your smile is more beautiful than any rose I've ever seen.mastt smile h ekdummm 💖">✨ Pull me</div>
+                <div class="petal petal3" data-fullmsg="✨cuddle karna h✨">🌸 Pull me</div>
+                <div class="petal petal4" data-fullmsg="🌸Sabse best thing hui h tu mere life mai 🌸blessing">💗 Pull me</div>
+                <div class="petal petal5" data-fullmsg="❤️ BUBUUUUUUUUUUUUuuuuu bhej  ❤️">🌹 Pull me</div>
+                <div class="petal petal6" data-fullmsg="💗 Thank you for blooming in my life and making it so colorful. With you, every day is Flower Day 💗">💖 Pull me</div>
 
-                <div class="petal inner-petal petal9" data-fullmsg="❤️ Tanisha, you are my heartbeat, my calm, my everything. I adore you endlessly ❤️">💞 Pull me 💞</div>
-                <div class="petal inner-petal petal10" data-fullmsg="🌙 Even the moon envies your glow. You are my dream come true, my forever love 🌙">🌙 Pull me 🌙</div>
-                <div class="petal inner-petal petal11" data-fullmsg="🌸 Hand in hand, our love blooms eternally. You make my life a fairytale, Tanisha 🌸">💫 Pull me 💫</div>
-                <div class="petal inner-petal petal12" data-fullmsg="✨ You turned my world into a garden of joy. I'm the luckiest because of you ✨">❤️ Pull me ❤️</div>
+                <!-- Inner Petals - intimate love notes -->
+                <div class="petal inner-petal petal7" data-fullmsg="🌹Love you BUBU 🌹">💞 Pull me</div>
+                <div class="petal inner-petal petal8" data-fullmsg="💕 Chal mil ab jaldiii💕">🌟 Pull me</div>
+                <div class="petal inner-petal petal9" data-fullmsg="✨ roz subh ek snap bheja kr muje ✨">💫 Pull me</div>
+                <div class="petal inner-petal petal10" data-fullmsg="❤️ Tanisha, my love for you is endless like this blooming ros  ❤️">🌙 Pull me</div>
+                <div class="petal inner-petal petal11" data-fullmsg="🌸 Wishing you the most beautiful Flower Day filled with joy and love. You deserve all the happiness in the world, my dear 🌸">💝 Pull me</div>
 
-                <div class="rose-center" data-fullmsg="💗 My Dearest Tanisha, Happy Flower Day! This magical rose is filled with my love for you... 💗">🌹 Tanisha ❤️</div>
+                <!-- Center -->
+                <div class="rose-center" id="center" data-fullmsg="💗 My dearest Tanisha, Happy Flower Day! This rose is just a small symbol of the immense love I have for you. You make my life beautiful every day. I love you endlessly, more than all the flowers in the universe. You are my heart's greatest treasure. 🌹❤️">
+                    🌹
+                </div>
             </div>
         </div>
 
-        <!-- Stem -->
-        <div class="stem">
+        <!-- Stem with leaves -->
+        <div class="stem" id="stemElement">
             <div class="leaf leaf1"></div>
             <div class="leaf leaf2"></div>
         </div>
     </div>
 
-    <div class="greeting">🌹 Tanisha's Eternal Rose 🌹</div>
-    <div class="sub">Gently drag any petal outward to reveal a secret love note 💌</div>
+    <div class="title">🌹 Happy Flower Day, Tanisha 🌹</div>
+    <div class="subtitle">🌸 Gently drag any petal outward to reveal my love note for you 💌</div>
     
-    <button class="reset-btn" id="resetBtn">🌸 Reset All Petals</button>
+    <button class="reset-btn" id="resetBtn">🌹 Reset All Petals</button>
 </div>
 
 <div id="popup" class="message-popup"></div>
 
 <script>
-    const petals = document.querySelectorAll('.petal');
-    const roseCenter = document.querySelector('.rose-center');
-    const resetBtn = document.getElementById('resetBtn');
-    const popup = document.getElementById('popup');
-
-    let activePetal = null, startX = 0, startY = 0, originLeft = 0, originTop = 0;
-    let isDragging = false;
-    let pulledSet = new Set();
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-    function showMessage(msg) {
-        popup.textContent = msg;
-        popup.classList.add('show');
-        clearTimeout(window.popupTimer);
-        window.popupTimer = setTimeout(() => {
-            popup.classList.remove('show');
-        }, 4500);
-    }
-
-    // Store original transforms
-    petals.forEach(p => p.dataset.originalTransform = p.style.transform);
-
-    function resetPetal(p) {
-        p.classList.remove('pulled-out', 'dragging');
-        p.style.position = '';
-        p.style.left = '';
-        p.style.top = '';
-        p.style.transform = p.dataset.originalTransform || '';
-        p.style.zIndex = '';
-        document.getElementById('rose').appendChild(p);
-        pulledSet.delete(p);
-    }
-
-    function getCoords(e) {
-        return e.touches ? 
-            {x: e.touches[0].clientX, y: e.touches[0].clientY} : 
-            {x: e.clientX, y: e.clientY};
-    }
-
-    function startDrag(e) {
-        const petal = e.target.closest('.petal');
-        if (!petal) return;
-
-        if (pulledSet.has(petal)) {
-            showMessage(petal.dataset.fullmsg);
-            return;
+    (function() {
+        const petals = document.querySelectorAll('.petal');
+        const center = document.getElementById('center');
+        const resetBtn = document.getElementById('resetBtn');
+        const popup = document.getElementById('popup');
+        const stem = document.getElementById('stemElement');
+        const leaves = document.querySelectorAll('.leaf');
+        
+        let activePetal = null;
+        let startX = 0, startY = 0;
+        let originLeft = 0, originTop = 0;
+        let isDragging = false;
+        let pulledSet = new Set();
+        
+        // Detect mobile for sensitivity tuning
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        
+        // Store original transforms
+        petals.forEach(petal => {
+            // Store the computed transform from CSS classes
+            const computedStyle = window.getComputedStyle(petal);
+            const transform = computedStyle.transform;
+            petal.dataset.originalTransform = transform !== 'none' ? transform : '';
+            petal.dataset.originalClass = petal.className;
+        });
+        
+        function showMessage(msg) {
+            if (!msg) return;
+            popup.textContent = msg;
+            popup.classList.add('show');
+            clearTimeout(window.popupTimer);
+            window.popupTimer = setTimeout(() => {
+                popup.classList.remove('show');
+            }, 4200);
         }
-
-        e.preventDefault();
-        const c = getCoords(e);
-        startX = c.x;
-        startY = c.y;
-
-        const rect = petal.getBoundingClientRect();
-        originLeft = rect.left;
-        originTop = rect.top;
-
-        activePetal = petal;
-        isDragging = true;
-        petal.classList.add('dragging');
-        petal.style.position = 'fixed';
-        petal.style.left = originLeft + 'px';
-        petal.style.top = originTop + 'px';
-        petal.style.zIndex = '1000';
-    }
-
-    function moveDrag(e) {
-        if (!isDragging || !activePetal) return;
-        e.preventDefault();
-
-        const c = getCoords(e);
-        const sens = isMobile ? 0.75 : 0.85;   // Better sensitivity on mobile
-        const dx = (c.x - startX) * sens;
-        const dy = (c.y - startY) * sens;
-
-        let nx = originLeft + dx;
-        let ny = originTop + dy;
-
-        // Better boundaries for mobile
-        nx = Math.max(30, Math.min(window.innerWidth - 140, nx));
-        ny = Math.max(40, Math.min(window.innerHeight - 180, ny));
-
-        activePetal.style.left = nx + 'px';
-        activePetal.style.top = ny + 'px';
-    }
-
-    function endDrag(e) {
-        if (!isDragging || !activePetal) return;
-
-        const c = getCoords(e);
-        const dist = Math.hypot(c.x - startX, c.y - startY);
-
-        activePetal.classList.remove('dragging');
-
-        if (dist > (isMobile ? 35 : 45)) {
-            showMessage(activePetal.dataset.fullmsg);
-            activePetal.classList.add('pulled-out');
-            pulledSet.add(activePetal);
-        } else {
-            resetPetal(activePetal);
+        
+        function resetPetal(petal) {
+            if (!petal) return;
+            // Remove all drag/pulled states
+            petal.classList.remove('pulled-out', 'dragging');
+            petal.style.position = '';
+            petal.style.left = '';
+            petal.style.top = '';
+            petal.style.zIndex = '';
+            petal.style.transform = '';
+            petal.style.cursor = 'grab';
+            petal.style.touchAction = 'none';
+            
+            // Restore original transform from dataset or fallback to class styles
+            if (petal.dataset.originalTransform && petal.dataset.originalTransform !== 'none') {
+                petal.style.transform = petal.dataset.originalTransform;
+            } else {
+                petal.style.transform = '';
+            }
+            
+            // Ensure it's back inside the rose container
+            const roseContainer = document.getElementById('rose');
+            if (petal.parentNode !== roseContainer) {
+                roseContainer.appendChild(petal);
+            }
+            pulledSet.delete(petal);
         }
-
-        isDragging = false;
-        activePetal = null;
-    }
-
-    // Event Listeners
-    petals.forEach(p => {
-        p.addEventListener('mousedown', startDrag, { passive: false });
-        p.addEventListener('touchstart', startDrag, { passive: false });
-    });
-
-    window.addEventListener('mousemove', moveDrag, { passive: false });
-    window.addEventListener('mouseup', endDrag, { passive: false });
-    window.addEventListener('touchmove', moveDrag, { passive: false });
-    window.addEventListener('touchend', endDrag, { passive: false });
-
-    resetBtn.addEventListener('click', () => {
-        petals.forEach(resetPetal);
-        showMessage("🌹 All petals returned beautifully to the rose 💖");
-    });
-
-    roseCenter.addEventListener('click', () => showMessage(roseCenter.dataset.fullmsg));
-
-    // Prevent pull-to-refresh on mobile
-    document.body.style.overscrollBehavior = 'none';
+        
+        function resetAllPetals() {
+            petals.forEach(petal => resetPetal(petal));
+            showMessage("🌹 All petals have returned to the beautiful rose for you, Tanisha! Pull them again to read more sweet messages 💖");
+        }
+        
+        function getCoords(e) {
+            if (e.touches && e.touches.length) {
+                return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            } else if (e.changedTouches && e.changedTouches.length) {
+                return { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+            }
+            return { x: e.clientX, y: e.clientY };
+        }
+        
+        function startDrag(e) {
+            const petal = e.target.closest('.petal');
+            if (!petal) return;
+            
+            // If already pulled out, just show message on touch/click
+            if (pulledSet.has(petal)) {
+                e.preventDefault();
+                showMessage(petal.dataset.fullmsg);
+                return;
+            }
+            
+            e.preventDefault();
+            const coords = getCoords(e);
+            startX = coords.x;
+            startY = coords.y;
+            
+            const rect = petal.getBoundingClientRect();
+            originLeft = rect.left;
+            originTop = rect.top;
+            
+            activePetal = petal;
+            isDragging = true;
+            petal.classList.add('dragging');
+            petal.style.position = 'fixed';
+            petal.style.left = originLeft + 'px';
+            petal.style.top = originTop + 'px';
+            petal.style.zIndex = '10000';
+            petal.style.transform = 'rotate(0deg) scale(1.05)';
+            petal.style.touchAction = 'none';
+        }
+        
+        function moveDrag(e) {
+            if (!isDragging || !activePetal) return;
+            e.preventDefault();
+            
+            const coords = getCoords(e);
+            // sensitivity makes drag feel natural on both mobile and desktop
+            const sensitivity = isMobile ? 0.85 : 0.92;
+            const dx = (coords.x - startX) * sensitivity;
+            const dy = (coords.y - startY) * sensitivity;
+            
+            let newLeft = originLeft + dx;
+            let newTop = originTop + dy;
+            
+            // Clamp within viewport edges so petal doesn't go off-screen
+            newLeft = Math.max(15, Math.min(window.innerWidth - 110, newLeft));
+            newTop = Math.max(25, Math.min(window.innerHeight - 130, newTop));
+            
+            activePetal.style.left = newLeft + 'px';
+            activePetal.style.top = newTop + 'px';
+        }
+        
+        function endDrag(e) {
+            if (!isDragging || !activePetal) {
+                if (activePetal) activePetal.classList.remove('dragging');
+                isDragging = false;
+                activePetal = null;
+                return;
+            }
+            
+            e.preventDefault();
+            const coords = getCoords(e);
+            const distance = Math.hypot(coords.x - startX, coords.y - startY);
+            
+            activePetal.classList.remove('dragging');
+            
+            // Threshold for pulling: 40px on mobile, 48px on desktop for better feel
+            const pullThreshold = isMobile ? 38 : 48;
+            
+            if (distance > pullThreshold && !pulledSet.has(activePetal)) {
+                // Successfully pulled - reveal sweet message
+                const sweetMsg = activePetal.dataset.fullmsg || "🌸 I love you, Tanisha! You're my forever flower 🌸";
+                showMessage(sweetMsg);
+                
+                activePetal.classList.add('pulled-out');
+                // Keep the final position but clamp again
+                let finalLeft = parseFloat(activePetal.style.left);
+                let finalTop = parseFloat(activePetal.style.top);
+                finalLeft = Math.max(10, Math.min(window.innerWidth - 100, finalLeft));
+                finalTop = Math.max(20, Math.min(window.innerHeight - 110, finalTop));
+                activePetal.style.left = finalLeft + 'px';
+                activePetal.style.top = finalTop + 'px';
+                activePetal.style.transform = 'rotate(6deg) scale(1.03)';
+                activePetal.style.cursor = 'pointer';
+                activePetal.style.zIndex = '200';
+                activePetal.style.touchAction = 'auto';
+                pulledSet.add(activePetal);
+                
+                // Add click handler to show message again when tapped (if not already)
+                if (!activePetal._pulledClickHandler) {
+                    const handler = function(ev) {
+                        ev.stopPropagation();
+                        const msg = activePetal.dataset.fullmsg || "💖 I love you, Tanisha! 💖";
+                        showMessage(msg);
+                    };
+                    activePetal.addEventListener('click', handler);
+                    activePetal.addEventListener('touchstart', handler, { passive: false });
+                    activePetal._pulledClickHandler = handler;
+                }
+            } else {
+                // Not pulled far enough - return to rose
+                resetPetal(activePetal);
+                if (distance > 15 && distance < pullThreshold) {
+                    showMessage("💕 Gently pull a little further to pluck the petal and read my secret note, my love 💕");
+                }
+            }
+            
+            isDragging = false;
+            activePetal = null;
+        }
+        
+        // Attach drag events to each petal
+        petals.forEach(petal => {
+            petal.addEventListener('mousedown', startDrag, { passive: false });
+            petal.addEventListener('touchstart', startDrag, { passive: false });
+        });
+        
+        // Global move and end listeners
+        window.addEventListener('mousemove', moveDrag, { passive: false });
+        window.addEventListener('mouseup', endDrag, { passive: false });
+        window.addEventListener('touchmove', moveDrag, { passive: false });
+        window.addEventListener('touchend', endDrag, { passive: false });
+        window.addEventListener('touchcancel', endDrag);
+        
+        // Reset button handler
+        resetBtn.addEventListener('click', resetAllPetals);
+        resetBtn.addEventListener('touchstart', (e) => { e.preventDefault(); resetAllPetals(); });
+        
+        // Rose center click/tap
+        if (center) {
+            center.addEventListener('click', (e) => {
+                const msg = center.dataset.fullmsg || "💗 You are my forever rose, Tanisha. Happy Flower Day! 💗";
+                showMessage(msg);
+            });
+            center.addEventListener('touchstart', (e) => { 
+                e.preventDefault();
+                const msg = center.dataset.fullmsg || "💗 You are my forever rose, Tanisha. Happy Flower Day! 💗";
+                showMessage(msg);
+            });
+        }
+        
+        // Stem and leaves interactions
+        if (stem) {
+            stem.addEventListener('click', () => showMessage("💚 Like this strong stem, our love is deeply rooted and unbreakable. I will always hold you close, Tanisha! 💚"));
+            stem.addEventListener('touchstart', (e) => { e.preventDefault(); showMessage("💚 Like this strong stem, our love is deeply rooted and unbreakable. I will always hold you close, Tanisha! 💚"); });
+        }
+        
+        leaves.forEach(leaf => {
+            leaf.addEventListener('click', () => showMessage("🍃 These leaves embrace the rose just like I embrace you with all my love. You are my everything, Tanisha 🍃"));
+            leaf.addEventListener('touchstart', (e) => { e.preventDefault(); showMessage("🍃 These leaves embrace the rose just like I embrace you with all my love. You are my everything, Tanisha 🍃"); });
+        });
+        
+        // Prevent default drag behavior on images/links
+        window.addEventListener('dragstart', (e) => e.preventDefault());
+        
+        // Welcome message on load
+        setTimeout(() => {
+            showMessage("🌹 Welcome my love, Tanisha! Gently drag any petal outward to pluck it and read a secret love note. Happy Flower Day, my beautiful rose! 🌹");
+        }, 600);
+        
+        // On window resize, reposition pulled petals to stay within view
+        window.addEventListener('resize', () => {
+            petals.forEach(petal => {
+                if (pulledSet.has(petal) && petal.style.position === 'fixed') {
+                    let left = parseFloat(petal.style.left);
+                    let top = parseFloat(petal.style.top);
+                    if (!isNaN(left)) {
+                        left = Math.max(10, Math.min(window.innerWidth - 100, left));
+                        top = Math.max(20, Math.min(window.innerHeight - 110, top));
+                        petal.style.left = left + 'px';
+                        petal.style.top = top + 'px';
+                    }
+                }
+            });
+        });
+        
+        // Clean up any stray drag states
+        document.body.addEventListener('touchcancel', () => {
+            if (activePetal) {
+                resetPetal(activePetal);
+                activePetal = null;
+                isDragging = false;
+            }
+        });
+    })();
 </script>
 </body>
 </html>
